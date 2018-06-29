@@ -211,9 +211,10 @@ func buildLabelOptions(labels map[string]string, stages []instructions.Stage) {
 
 	// Sort the label to have a repeatable order
 	sort.Strings(keys)
+	stage := stages[len(stages)-1]
 	for _, key := range keys {
 		value := labels[key]
-		stages[len(stages)-1].AddCommand(instructions.NewLabelCommand(key, value, true))
+		stage.AddCommand(instructions.NewLabelCommand(key, value, true))
 	}
 }
 

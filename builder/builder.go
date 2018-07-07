@@ -62,7 +62,7 @@ type ExecBackend interface {
 	ContainerAttachRaw(cID string, stdin io.ReadCloser, stdout, stderr io.Writer, stream bool, attached chan struct{}) error
 	// ContainerCreate creates a new Docker container and returns potential warnings
 	ContainerCreate(config types.ContainerCreateConfig) (container.ContainerCreateCreatedBody, error)
-	// ContainerRm removes a container specified by `id`.
+	// ContainerRm removes a container specified by `name`.
 	ContainerRm(name string, config *types.ContainerRmConfig) error
 	// ContainerKill stops the container execution abruptly.
 	ContainerKill(containerID string, sig uint64) error
@@ -87,7 +87,7 @@ type ImageCacheBuilder interface {
 // ImageCache abstracts an image cache.
 // (parent image, child runconfig) -> child image
 type ImageCache interface {
-	// GetCache returns a reference to a cached image whose parent equals `parent`
+	// GetCache returns a reference to a cached image whose parent equals `parentID`
 	// and runconfig equals `cfg`. A cache miss is expected to return an empty ID and a nil error.
 	GetCache(parentID string, cfg *container.Config) (imageID string, err error)
 }
